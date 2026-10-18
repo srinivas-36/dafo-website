@@ -1,0 +1,482 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --brand-cream: #f6f3ec;
+  --brand-ink: #1c1730;
+  --brand-line: #e6e0d4;
+  --brand-indigo: #3526c9;
+  --brand-indigo-solid: #3526c9;
+  --brand-violet: #6d46d6;
+  --brand-night: #12101c;
+  --brand-night-fg: #f7f3ec;
+  --brand-night-accent: #d4c6ff;
+  --brand-card: #fffdf8;
+  --brand-mist: #efeaf8;
+  --gradient-brand: linear-gradient(135deg, #b44bf5 0%, #7c4bea 50%, #4b39e8 100%);
+}
+
+.dark {
+  color-scheme: dark;
+  --brand-cream: #070916;
+  --brand-ink: #f4f0e8;
+  --brand-line: rgba(244, 240, 232, 0.14);
+  --brand-indigo: #c4b6ff;
+  --brand-violet: #c4b5fd;
+  --brand-card: #12162c;
+  --brand-mist: #2a2340;
+  --brand-night: #0d1124;
+  --brand-night-fg: #f7f3ec;
+  --brand-night-accent: #ddd4ff;
+  --gradient-brand: linear-gradient(135deg, #b44bf5 0%, #7c4bea 50%, #4b39e8 100%);
+}
+
+@theme inline {
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-line: var(--brand-line);
+  --color-brand-indigo: var(--brand-indigo);
+  --color-brand-violet: var(--brand-violet);
+  --color-brand-night: var(--brand-night);
+  --color-brand-night-fg: var(--brand-night-fg);
+  --color-brand-night-accent: var(--brand-night-accent);
+  --color-brand-card: var(--brand-card);
+  --color-brand-mist: var(--brand-mist);
+  --color-primary-foreground: #ffffff;
+  --font-sans: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
+}
+
+html {
+  background: var(--brand-cream);
+}
+
+body {
+  margin: 0;
+  background: var(--brand-cream);
+  color: var(--brand-ink);
+  font-family: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--brand-indigo) 24%, white);
+  color: var(--brand-ink);
+}
+
+.font-serif {
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.hero-section h1.font-serif {
+  font-family: var(--font-dm-serif-display), "DM Serif Display", Georgia, serif;
+  font-size: 60px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.journey-match-title {
+  font-family: var(--font-dm-serif-display), "DM Serif Display", Georgia, serif;
+  font-size: 51px;
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: 0;
+  color: var(--brand-ink);
+}
+
+.journey-match-lede {
+  margin-top: 22px;
+  max-width: 42rem;
+  font-family: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--brand-ink) 55%, transparent);
+}
+
+.dark .journey-match-title {
+  color: #f0eef4;
+}
+
+.dark .journey-match-lede {
+  color: #8c8e9b;
+}
+
+.hero-accent {
+  background-image: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.hero-section p.hero-lede {
+  color: color-mix(in oklab, var(--brand-ink) 65%, transparent);
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  line-height: 1.625;
+}
+
+.dark .hero-lede {
+  color: oklab(0.963734 0.00724688 -0.017274 / 0.65);
+}
+
+.dark .hero-section {
+  background:
+    radial-gradient(55% 70% at 88% 10%, #1c0b35 0%, rgba(28, 11, 53, 0) 68%),
+    radial-gradient(55% 70% at 12% 92%, #1c0b35 0%, rgba(28, 11, 53, 0) 68%),
+    #070916;
+}
+
+.dark .journey-match {
+  background:
+    radial-gradient(55% 70% at 88% 10%, #1c0b35 0%, rgba(28, 11, 53, 0) 68%),
+    radial-gradient(32% 40% at 8% 100%, #1c0b35 0%, rgba(28, 11, 53, 0) 58%),
+    #070916;
+}
+
+.dark .hero-section h1.font-serif {
+  color: #ffffff;
+}
+
+.dark .hero-section .ambient-layer {
+  display: none;
+}
+
+.dark .hero-section .conversation-light {
+  background: radial-gradient(ellipse at 76% 42%, rgba(28, 11, 53, 0.85), transparent 66%);
+  filter: none;
+}
+
+.dark .hero-accent {
+  background-image: var(--gradient-brand);
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+@media (max-width: 767px) {
+  .hero-section h1.font-serif {
+    font-size: clamp(2rem, 7.6vw, 2.5rem);
+    line-height: 1.1;
+  }
+}
+
+.journey-opener {
+  background: #0d1124;
+  color: #fff;
+}
+
+.journey-opener__lead,
+.journey-opener__follow {
+  font-family: var(--font-dm-serif-display), "DM Serif Display", Georgia, serif;
+  color: #fff;
+}
+
+.journey-opener__lead {
+  font-size: 34.4px;
+  line-height: 1.22;
+}
+
+.journey-opener__follow {
+  font-size: 40.8px;
+  line-height: 1.14;
+}
+
+.journey-opener__accent,
+.dark .journey-opener__accent {
+  color: #c9bcff;
+}
+
+.ambient-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+  opacity: 0.72;
+}
+
+.ambient-blob--a {
+  top: -18%;
+  left: -12%;
+  width: 46%;
+  height: 78%;
+  background: #ddd0ff;
+}
+
+.ambient-blob--b {
+  top: 8%;
+  right: -14%;
+  width: 42%;
+  height: 70%;
+  background: #c9d8ff;
+}
+
+.ambient-blob--c {
+  bottom: -28%;
+  left: 24%;
+  width: 48%;
+  height: 62%;
+  background: #f3d4ea;
+  opacity: 0.55;
+}
+
+.ambient-layer--hero .ambient-blob--a {
+  width: 52%;
+  height: 88%;
+}
+
+.ambient-layer--soft .ambient-blob {
+  opacity: 0.34;
+  filter: blur(88px);
+}
+
+.ambient-blob--light {
+  opacity: 0.42;
+}
+
+.ambient-blob--light.ambient-blob--a {
+  background: rgba(186, 156, 255, 0.55);
+}
+
+.ambient-blob--light.ambient-blob--b {
+  background: rgba(120, 160, 255, 0.4);
+}
+
+.ambient-blob--light.ambient-blob--c {
+  background: rgba(255, 186, 220, 0.28);
+}
+
+.dark .ambient-blob {
+  opacity: 0.28;
+}
+
+.section-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(60rem, 92vw);
+  height: 18rem;
+  transform: translate(-50%, -55%);
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--brand-indigo) 18%, transparent),
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+.conversation-light {
+  position: absolute;
+  inset: 4% 0 2%;
+  background:
+    radial-gradient(ellipse at 50% 58%, color-mix(in srgb, var(--brand-indigo) 24%, transparent), transparent 62%),
+    radial-gradient(ellipse at 18% 28%, rgba(192, 132, 252, 0.34), transparent 46%),
+    radial-gradient(ellipse at 84% 26%, rgba(96, 165, 250, 0.32), transparent 46%);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.device-frame {
+  width: 100%;
+  border-radius: 2.7rem;
+  border: 1px solid color-mix(in srgb, var(--brand-ink) 12%, transparent);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.18));
+  box-shadow:
+    0 40px 80px -42px color-mix(in srgb, var(--brand-indigo) 65%, transparent),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+  padding: 0.7rem;
+}
+
+.dark .device-frame {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 40px 80px -42px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.device-frame > div {
+  border-radius: 2.15rem;
+  background:
+    radial-gradient(120% 70% at 50% 0%, color-mix(in srgb, var(--brand-mist) 80%, white), transparent 58%),
+    linear-gradient(180deg, var(--brand-cream), color-mix(in srgb, var(--brand-mist) 70%, var(--brand-cream)));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brand-line) 80%, transparent);
+}
+
+.living-conversations {
+  pointer-events: none;
+  overflow: visible;
+}
+
+.conversation-connection {
+  fill: none;
+  stroke: color-mix(in srgb, var(--brand-indigo) 42%, transparent);
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-dasharray: 7 11;
+  animation: conversation-flow 3.2s linear infinite;
+}
+
+.conversation-avatar__edge {
+  fill: none;
+  stroke: color-mix(in srgb, white 88%, var(--brand-indigo));
+  stroke-width: 3.5;
+}
+
+.dark .conversation-avatar__edge {
+  stroke: rgba(255, 255, 255, 0.55);
+}
+
+.conversation-bubble__body {
+  fill: #fffdf8;
+  filter: drop-shadow(0 10px 16px rgba(28, 23, 48, 0.12));
+}
+
+.conversation-bubble--reply .conversation-bubble__body {
+  fill: #3526c9;
+}
+
+.conversation-dot {
+  fill: #3526c9;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: conversation-dot 1.15s ease-in-out infinite;
+}
+
+.conversation-bubble--reply .conversation-dot {
+  fill: #fffdf8;
+}
+
+.conversation-dot--1 {
+  animation-delay: 0.16s;
+}
+
+.conversation-dot--2 {
+  animation-delay: 0.32s;
+}
+
+.conversation-pair {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: conversation-float 8s ease-in-out infinite;
+}
+
+.conversation-pair--second {
+  animation-duration: 9.2s;
+  animation-delay: -1.4s;
+}
+
+.conversation-pair--main {
+  animation-duration: 10s;
+  animation-delay: -2.2s;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.reveal--in {
+  opacity: 1;
+  transform: none;
+}
+
+.finding-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--brand-indigo) 40%, transparent);
+  animation: finding-ring 2.6s ease-out infinite;
+}
+
+.finding-dot {
+  animation: finding-dot 1.15s ease-in-out infinite;
+}
+
+.finding-dot:nth-child(2) {
+  animation-delay: 0.16s;
+}
+
+.finding-dot:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+@keyframes conversation-flow {
+  to {
+    stroke-dashoffset: -72;
+  }
+}
+
+@keyframes conversation-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.28;
+  }
+
+  40% {
+    opacity: 1;
+  }
+}
+
+@keyframes conversation-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes finding-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.65;
+  }
+
+  100% {
+    transform: scale(1.38);
+    opacity: 0;
+  }
+}
+
+@keyframes finding-dot {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .conversation-pair,
+  .conversation-dot,
+  .conversation-connection,
+  .finding-ring,
+  .finding-dot {
+    animation: none;
+  }
+}
