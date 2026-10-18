@@ -17,7 +17,7 @@ export function HomepageJourney() {
         <div className="relative mx-auto flex max-w-7xl px-6 pt-12 pb-9 lg:px-8 lg:pt-16">
           <span
             aria-hidden
-            className="invisible shrink-0 pl-7 text-base font-medium whitespace-pre"
+            className="invisible hidden shrink-0 pl-7 text-base font-medium whitespace-pre lg:block"
           >
             {"Join Early "}
           </span>
@@ -25,7 +25,7 @@ export function HomepageJourney() {
             <div className="max-w-3xl space-y-3 sm:space-y-4">
               {journeyOpener.map((line, index) => (
                 <Reveal key={line} delay={index * 70}>
-                  <p className="journey-opener__lead text-balance">{line}</p>
+                  <p className="journey-opener__lead lg:text-balance">{line}</p>
                 </Reveal>
               ))}
             </div>
@@ -33,10 +33,10 @@ export function HomepageJourney() {
               delay={140}
               className="mt-8 max-w-3xl border-t border-white/12 pt-7 sm:mt-9 sm:pt-8 lg:mt-11"
             >
-              <p className="journey-opener__follow text-balance">
+              <p className="journey-opener__follow lg:text-balance">
                 Or maybe there&apos;s just something on your mind.
               </p>
-              <p className="journey-opener__follow journey-opener__accent mt-2 text-balance">
+              <p className="journey-opener__follow journey-opener__accent mt-2 lg:text-balance">
                 Or maybe... you simply feel like talking.
               </p>
             </Reveal>
@@ -159,7 +159,7 @@ export function HomepageJourney() {
 
       <section className="relative overflow-hidden bg-brand-night py-24 text-brand-night-fg lg:py-36">
         <AmbientLight variant="night" />
-        <div className="relative mx-auto max-w-6xl px-6 text-center lg:px-8">
+        <div className="conversation-band relative mx-auto max-w-6xl px-6 text-center lg:px-8">
           <div className="flex flex-col items-center justify-center gap-3 text-sm uppercase tracking-[0.2em] text-brand-night-fg/50 sm:flex-row sm:gap-5">
             <span>No feed.</span>
             <span
@@ -173,7 +173,7 @@ export function HomepageJourney() {
             />
             <span>No networking.</span>
           </div>
-          <h2 className="mt-10 font-serif font-semibold text-6xl leading-none text-brand-night-fg sm:text-7xl lg:text-8xl">
+          <h2 className="mt-10 font-serif font-semibold leading-none text-brand-night-fg">
             Just conversation.
           </h2>
           <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-brand-night-fg/65 lg:text-xl">
