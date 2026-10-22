@@ -256,9 +256,14 @@ body {
   }
 
   .journey-opener__follow {
-    font-size: calc((100vw - 3rem) / 17.6);
+    font-size: calc((100vw - 3rem) / 15.8);
     line-height: 1.22;
     white-space: normal;
+  }
+
+  .journey-opener__accent {
+    font-size: calc((100vw - 3rem) / 17.4);
+    white-space: nowrap;
   }
 
   .conversation-band {
