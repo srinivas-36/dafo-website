@@ -1,7 +1,7 @@
 export const heroTrust = [
-  "Anonymous conversations",
   "Context-based matching",
   "Moderated community",
+  "Anonymous conversations",
 ];
 
 export const journeyOpener = [

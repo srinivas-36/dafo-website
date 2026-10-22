@@ -36,8 +36,10 @@ export function HomepageJourney() {
               className="mt-7 max-w-3xl border-t border-white/12 pt-6 sm:mt-9 sm:pt-8 lg:mt-11"
             >
               <p className="journey-opener__follow lg:text-balance">
-                Or maybe there&apos;s just something{" "}
-                <span className="max-sm:whitespace-nowrap">on your mind.</span>
+                Or maybe there&apos;s just{" "}
+                <span className="max-sm:whitespace-nowrap">
+                  something on your mind.
+                </span>
               </p>
               <p className="journey-opener__follow journey-opener__accent mt-2.5 sm:mt-2 lg:text-balance">
                 Or maybe... you simply feel like talking.
@@ -165,8 +167,8 @@ export function HomepageJourney() {
         </Reveal>
       </section>
 
-      <section className="relative overflow-hidden bg-brand-night py-12 text-brand-night-fg sm:py-24 lg:py-36">
-        <AmbientLight variant="night" />
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#252B45] via-brand-night to-[#252B45] py-12 text-brand-night-fg sm:bg-brand-night sm:bg-none sm:py-24 lg:py-36">
+        <AmbientLight variant="night" className="hidden sm:block" />
         <div className="conversation-band relative mx-auto w-full max-w-6xl px-5 text-center sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center gap-2.5 text-[0.8125rem] font-medium uppercase leading-none tracking-[0.16em] text-brand-night-fg/70 sm:flex-row sm:gap-5 sm:text-sm sm:font-normal sm:leading-normal sm:tracking-[0.2em] sm:text-brand-night-fg/50">
             <span>No feed.</span>
@@ -248,7 +250,10 @@ function Chip({ chip }: { chip: MatchChip }) {
       )}
     >
       {chip.emoji ? (
-        <span aria-hidden className="shrink-0 text-[15px] leading-none lg:text-[13px]">
+        <span
+          aria-hidden
+          className="shrink-0 text-[15px] leading-none lg:text-[13px]"
+        >
           {chip.emoji}
         </span>
       ) : null}

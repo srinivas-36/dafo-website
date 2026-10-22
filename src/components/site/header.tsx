@@ -22,21 +22,28 @@ export function Header() {
     if (pathname !== path) return;
 
     event.preventDefault();
-    document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document
+      .getElementById(hash)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
     window.history.pushState(null, "", `/#${hash}`);
   }
 
   return (
     <header className="sticky top-0 z-40 border-b border-brand-line bg-brand-cream/85 backdrop-blur">
       <nav className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
-        <Link href="/" aria-label="DafoTalk home" className="flex items-center" onClick={() => setOpen(false)}>
+        <Link
+          href="/"
+          aria-label="DafoTalk home"
+          className="flex items-center"
+          onClick={() => setOpen(false)}
+        >
           <Image
             src="/logo.webp"
             alt=""
-            width={1920}
-            height={518}
+            width={1900}
+            height={500}
             priority
-            className="h-10 w-auto"
+            className="h-8 w-auto"
           />
         </Link>
 
@@ -51,7 +58,9 @@ export function Header() {
                 onClick={(event) => onNavClick(event, item.href)}
                 className={cn(
                   "text-sm font-medium transition-colors",
-                  active ? "text-brand-indigo" : "text-brand-ink/70 hover:text-brand-indigo",
+                  active
+                    ? "text-brand-indigo"
+                    : "text-brand-ink/70 hover:text-brand-indigo",
                 )}
               >
                 {item.label}
@@ -69,7 +78,15 @@ export function Header() {
             aria-expanded={open}
             onClick={() => setOpen((current) => !current)}
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden
+            >
               {open ? (
                 <path d="M6 6l12 12M18 6 6 18" strokeLinecap="round" />
               ) : (
@@ -93,14 +110,20 @@ export function Header() {
                   onClick={(event) => onNavClick(event, item.href)}
                   className={cn(
                     "rounded-xl px-3 py-3 text-sm font-medium transition-colors",
-                    active ? "text-brand-indigo" : "text-brand-ink/70 hover:text-brand-indigo",
+                    active
+                      ? "text-brand-indigo"
+                      : "text-brand-ink/70 hover:text-brand-indigo",
                   )}
                 >
                   {item.label}
                 </Link>
               );
             })}
-            <EarlyAccessModal label="Join Waitlist" variant="hero" className="mt-3 sm:hidden" />
+            <EarlyAccessModal
+              label="Join Waitlist"
+              variant="hero"
+              className="mt-3 sm:hidden"
+            />
           </div>
         </div>
       ) : null}

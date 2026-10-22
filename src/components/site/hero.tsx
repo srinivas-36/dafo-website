@@ -33,7 +33,7 @@ export function Hero() {
               className="w-full sm:w-auto"
             />
           </div>
-          <ul className="mt-6 flex w-full flex-col gap-2.5 text-sm text-brand-ink/60 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2 dark:text-white/60">
+          <ul className="mt-6 grid w-full grid-cols-2 gap-x-2 gap-y-2 text-[10px] text-brand-ink/60 sm:mt-8 sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2 sm:text-xs dark:text-white/60">
             {heroTrust.map((item) => (
               <li key={item} className="inline-flex items-center gap-1.5">
                 <svg

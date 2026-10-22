@@ -262,7 +262,7 @@ body {
   }
 
   .journey-opener__accent {
-    font-size: calc((100vw - 3rem) / 17.4);
+    font-size: calc((100vw - 3rem) / 16.4);
     white-space: nowrap;
   }
 
