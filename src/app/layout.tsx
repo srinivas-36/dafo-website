@@ -5,6 +5,8 @@ import { Header } from "@/components/site/header";
 import { themeBootScript } from "@/components/site/theme-toggle";
 import "./globals.css";
 
+const stayAtTopOnLoadScript = `(function(){try{var path=location.pathname;if(path!=="/"&&path!=="")return;if(!location.hash)return;history.scrollRestoration="manual";history.replaceState(null,"",path+location.search);var allow=true;var pin=function(){if(allow)scrollTo(0,0)};pin();document.addEventListener("DOMContentLoaded",pin);addEventListener("pointerdown",function(){allow=false},{capture:true,once:true});addEventListener("load",function(){pin();history.scrollRestoration="auto"});}catch(e){}})();`;
+
 const sans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm-sans",
@@ -39,6 +41,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={`${sans.variable} ${serif.variable} ${display.variable} dark h-full antialiased`}>
       <body className="min-h-full">
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+        <script dangerouslySetInnerHTML={{ __html: stayAtTopOnLoadScript }} />
         <div className="flex min-h-screen flex-col bg-brand-cream font-sans text-brand-ink antialiased">
           <a
             href="#content"

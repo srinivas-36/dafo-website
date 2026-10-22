@@ -12,26 +12,28 @@ const heroLede = Inter({
 
 export function Hero() {
   return (
-    <section className="hero-section relative overflow-hidden pt-12 pb-20">
+    <section className="hero-section relative overflow-hidden pt-10 pb-12 sm:pb-20 ">
       <AmbientLight variant="hero" />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 pt-16 pb-20 lg:grid-cols-[minmax(0,33rem)_minmax(0,1fr)] lg:gap-x-8 lg:px-8 lg:pt-24 lg:pb-28">
-        <div>
-          <h1 className="font-serif text-brand-ink">
-            Sometimes, you
-            <br />
-            just need someone
-            <br />
-            to <span className="hero-accent">talk to.</span>
+      <div className="relative mx-auto grid w-full min-w-0 max-w-7xl grid-cols-[minmax(0,1fr)] items-center gap-10 px-5 pt-6 pb-4 sm:gap-14 sm:px-6 sm:pt-16 sm:pb-20 lg:grid-cols-[minmax(0,56fr)_minmax(0,44fr)] lg:gap-x-20 lg:px-8 lg:pt-24 lg:pb-28">
+        <div className="min-w-0">
+          <h1 className="max-w-full font-serif text-brand-ink">
+            Sometimes, you <br className="hidden md:block" />
+            just need someone <br className="hidden md:block" />
+            to <span className="hero-accent whitespace-nowrap">talk to.</span>
           </h1>
-          <p className="mt-7 max-w-[33rem] text-[17px] leading-relaxed text-brand-ink/65 dark:text-white/65">
+          <p className="hero-copy mt-5 max-w-full text-[17px] font-normal leading-relaxed text-brand-ink/65 sm:mt-7 sm:text-lg dark:text-white/65">
             DafoTalk helps you find someone who understands where you&apos;re
             coming from — based on who you are, what matters to you, and what
             you want to talk about.
           </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <EarlyAccessModal label="Join Early Access" variant="hero" />
+          <div className="mt-7 flex w-full flex-col gap-3 sm:mt-9 sm:flex-row">
+            <EarlyAccessModal
+              label="Join Early Access"
+              variant="hero"
+              className="w-full sm:w-auto"
+            />
           </div>
-          <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-brand-ink/60 dark:text-white/60">
+          <ul className="mt-6 flex w-full flex-col gap-2.5 text-sm text-brand-ink/60 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2 dark:text-white/60">
             {heroTrust.map((item) => (
               <li key={item} className="inline-flex items-center gap-1.5">
                 <svg
@@ -52,7 +54,7 @@ export function Hero() {
           </ul>
         </div>
 
-        <div className="relative">
+        <div className="relative min-w-0">
           <div className="relative mx-auto aspect-[1188/840] w-full max-w-xl lg:max-w-none">
             <div aria-hidden className="conversation-light" />
             <LivingConversations />

@@ -52,6 +52,7 @@ export function EarlyAccessModal({ label, variant = "header", className }: Early
 }
 
 function WaitlistDialog({ titleId, onClose }: { titleId: string; onClose: () => void }) {
+  const shellRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
   const [form, setForm] = useState(emptyForm);
@@ -65,11 +66,39 @@ function WaitlistDialog({ titleId, onClose }: { titleId: string; onClose: () => 
   }, [onClose]);
 
   useEffect(() => {
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const scrollY = window.scrollY;
+    const { style } = document.body;
+    const previous = {
+      overflow: style.overflow,
+      position: style.position,
+      top: style.top,
+      left: style.left,
+      right: style.right,
+      width: style.width,
+    };
+    style.overflow = "hidden";
+    style.position = "fixed";
+    style.top = `-${scrollY}px`;
+    style.left = "0";
+    style.right = "0";
+    style.width = "100%";
+
     const frame = window.requestAnimationFrame(() => {
-      dialogRef.current?.querySelector<HTMLElement>("input, button")?.focus();
+      dialogRef.current?.querySelector<HTMLElement>("input, button")?.focus({ preventScroll: true });
     });
+
+    const shell = shellRef.current;
+    const viewport = window.visualViewport;
+    function fitViewport() {
+      if (!shell) return;
+      const height = viewport?.height ?? window.innerHeight;
+      const offsetTop = viewport?.offsetTop ?? 0;
+      shell.style.height = `${height}px`;
+      shell.style.top = `${offsetTop}px`;
+    }
+    fitViewport();
+    viewport?.addEventListener("resize", fitViewport);
+    viewport?.addEventListener("scroll", fitViewport);
 
     function onKey(event: KeyboardEvent) {
       if (event.key === "Escape") onCloseRef.current();
@@ -77,7 +106,15 @@ function WaitlistDialog({ titleId, onClose }: { titleId: string; onClose: () => 
 
     document.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = previous;
+      style.overflow = previous.overflow;
+      style.position = previous.position;
+      style.top = previous.top;
+      style.left = previous.left;
+      style.right = previous.right;
+      style.width = previous.width;
+      window.scrollTo(0, scrollY);
+      viewport?.removeEventListener("resize", fitViewport);
+      viewport?.removeEventListener("scroll", fitViewport);
       document.removeEventListener("keydown", onKey);
       window.cancelAnimationFrame(frame);
     };
@@ -113,16 +150,19 @@ function WaitlistDialog({ titleId, onClose }: { titleId: string; onClose: () => 
   }
 
   return createPortal(
-    <div className="fixed inset-0 z-50 grid place-items-center bg-brand-night/60 px-4 py-8 backdrop-blur-sm" onMouseDown={onClose}>
-      <div
-        ref={dialogRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        className="w-full max-w-lg rounded-3xl border border-brand-line bg-brand-cream p-6 text-brand-ink shadow-2xl sm:p-8"
-        onMouseDown={(event) => event.stopPropagation()}
-        onKeyDown={trapFocus}
-      >
+    <div ref={shellRef} className="fixed inset-0 z-50 h-dvh max-h-dvh">
+      <div className="absolute inset-0 bg-brand-night/60 backdrop-blur-sm" onMouseDown={onClose} />
+      <div className="relative z-10 h-full touch-pan-y overflow-y-auto overscroll-contain" onMouseDown={onClose}>
+        <div className="flex min-h-full items-center justify-center px-4 pt-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+          <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            className="my-auto w-full max-w-lg rounded-3xl border border-brand-line bg-brand-cream p-6 text-brand-ink shadow-2xl sm:p-8"
+            onMouseDown={(event) => event.stopPropagation()}
+            onKeyDown={trapFocus}
+          >
         <div className="flex items-start justify-between gap-4">
           <BrandMark className="h-9 w-9" />
           <button
@@ -222,6 +262,8 @@ function WaitlistDialog({ titleId, onClose }: { titleId: string; onClose: () => 
             </button>
           </form>
         )}
+          </div>
+        </div>
       </div>
     </div>,
     document.body,
