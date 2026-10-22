@@ -153,13 +153,13 @@ export function HomepageJourney() {
       <section className="relative overflow-hidden border-y border-brand-line bg-brand-cream py-12 sm:py-14 lg:py-20">
         <div aria-hidden className="section-glow" />
         <Reveal className="relative mx-auto w-full max-w-5xl px-5 text-center sm:px-6 lg:px-8">
-          <p className="text-balance font-serif text-[clamp(1.7rem,7.2vw,2rem)] font-semibold leading-[1.15] text-brand-ink sm:text-4xl lg:text-5xl">
+          <p className="whitespace-nowrap font-serif text-[clamp(1rem,calc((100vw-2.5rem)/12.8),2rem)] font-semibold leading-[1.15] text-brand-ink sm:text-balance sm:text-4xl sm:whitespace-normal lg:text-5xl">
             Whatever the conversation.
           </p>
-          <p className="mt-2 text-balance font-serif text-[clamp(1.7rem,7.2vw,2rem)] font-semibold leading-[1.15] text-brand-ink/55 sm:text-4xl lg:text-5xl">
+          <p className="mt-2 whitespace-nowrap font-serif text-[clamp(1rem,calc((100vw-2.5rem)/12.8),2rem)] font-semibold leading-[1.15] text-brand-ink/55 sm:text-balance sm:text-4xl sm:whitespace-normal lg:text-5xl">
             Whatever the situation.
           </p>
-          <p className="mt-2 text-balance font-serif text-[clamp(1.7rem,7.2vw,2rem)] font-semibold leading-[1.15] text-brand-indigo sm:text-4xl lg:text-5xl">
+          <p className="mt-2 whitespace-nowrap font-serif text-[clamp(1rem,calc((100vw-2.5rem)/12.8),2rem)] font-semibold leading-[1.15] text-brand-indigo sm:text-balance sm:text-4xl sm:whitespace-normal lg:text-5xl">
             Whatever&apos;s on your mind.
           </p>
         </Reveal>
