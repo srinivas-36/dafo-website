@@ -20,7 +20,9 @@ export function Footer() {
     if (pathname !== path) return;
 
     event.preventDefault();
-    document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document
+      .getElementById(hash)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
     window.history.pushState(null, "", `/#${hash}`);
   }
 
@@ -29,11 +31,22 @@ export function Footer() {
       <div className="mx-auto w-full max-w-7xl px-5 py-12 sm:px-6 sm:py-16 lg:px-8">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <Link href="/" aria-label="DafoTalk home" className="mb-5 inline-flex items-center">
-              <Image src="/logo.webp" alt="" width={1920} height={518} className="h-10 w-auto" />
+            <Link
+              href="/"
+              aria-label="DafoTalk home"
+              className="mb-5 inline-flex items-center"
+            >
+              <Image
+                src="/logo.webp"
+                alt=""
+                width={1920}
+                height={518}
+                className="h-10 w-auto"
+              />
             </Link>
             <p className="max-w-sm text-sm leading-relaxed text-brand-night-fg/60">
-              Honest conversations with people who understand where you&apos;re coming from.
+              Honest conversations with people who understand where you&apos;re
+              coming from.
             </p>
             <div className="mt-8">
               <EarlyAccessModal label="Join Waitlist" variant="footer" />
@@ -82,7 +95,7 @@ export function Footer() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={item.label}
-                      className="grid h-9 w-9 place-items-center rounded-full border border-[#7c3aed] text-brand-night-fg/70 transition-colors hover:bg-[#7c3aed]/15 hover:text-brand-night-fg"
+                      className="grid h-9 w-9 place-items-center rounded-full border border-[#7c3aed] text-brand-night-fg/70 transition-colors hover:border-[#7c3aed]/15 hover:text-brand-night-fg"
                     >
                       {item.icon}
                     </a>

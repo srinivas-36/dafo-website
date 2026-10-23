@@ -11,6 +11,8 @@ import {
 import { cn } from "@/lib/cn";
 
 export function HomepageJourney() {
+  const matchCardCount = matchSteps.length + 2;
+
   return (
     <>
       <section className="journey-opener relative overflow-hidden border-y border-brand-line">
@@ -64,23 +66,28 @@ export function HomepageJourney() {
             </p>
           </div>
 
-          <div className="mt-8 sm:mt-14 sm:rounded-2xl sm:border sm:border-brand-line/60 sm:bg-brand-card/25 sm:p-7 lg:mt-20 lg:p-10">
-            <div className="grid auto-rows-fr grid-cols-[minmax(0,1fr)] gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5">
-              <article className="flex min-h-52 min-w-0 flex-col rounded-xl border border-brand-night-fg/10 bg-brand-night p-5 sm:min-h-[19rem]">
-                <div className="relative flex h-full min-h-44 flex-col items-center justify-center gap-3.5 sm:min-h-64">
+          <div className="mx-auto mt-8 w-full sm:mt-14 sm:rounded-2xl sm:border sm:border-brand-line/60 sm:bg-brand-card/25 sm:p-7 lg:mt-20 lg:p-10">
+            <div
+              className={cn(
+                "mx-auto grid w-full auto-rows-fr grid-cols-1 items-stretch justify-center gap-3 sm:grid-cols-2 sm:gap-4",
+                matchCardCount > 4 ? "lg:grid-cols-5" : "lg:grid-cols-4",
+              )}
+            >
+              <article className="flex h-full min-h-52 min-w-0 flex-col rounded-xl border border-brand-night-fg/10 bg-brand-night p-5 sm:min-h-[19rem]">
+                <div className="relative flex h-full min-h-44 flex-col items-center justify-center gap-3.5 text-center sm:min-h-0">
                   <Image
                     src="/logo-mark.webp"
                     alt=""
                     width={1254}
                     height={1254}
-                    className="pointer-events-none h-14 w-14"
+                    className="pointer-events-none h-12 w-12"
                   />
                   <Image
                     src="/brand.webp"
                     alt="DafoTalk"
                     width={1020}
                     height={400}
-                    className="h-auto w-3/4 max-w-40"
+                    className="h-auto w-3/5 max-w-40"
                   />
                 </div>
               </article>
@@ -88,16 +95,16 @@ export function HomepageJourney() {
               {matchSteps.map((step) => (
                 <article
                   key={step.step}
-                  className="flex min-h-0 min-w-0 flex-col rounded-xl border border-brand-line bg-brand-cream p-5 sm:min-h-[19rem]"
+                  className="flex h-full min-h-52 min-w-0 flex-col rounded-xl border border-brand-line bg-brand-cream p-5 sm:min-h-[19rem]"
                 >
                   <div className="flex h-full min-w-0 flex-col">
                     <span className="font-serif text-[10px] font-medium uppercase tracking-[0.18em] text-brand-indigo">
                       {step.step}
                     </span>
-                    <h3 className="mt-3 font-serif text-xl leading-tight text-brand-ink sm:mt-4 sm:min-h-14 lg:text-[1.15rem]">
+                    <h3 className="mt-3 font-serif text-xl leading-snug text-brand-ink sm:mt-4 lg:min-h-[3.6rem] lg:text-[1.15rem] lg:leading-tight">
                       {step.title}
                     </h3>
-                    <div className="mt-5 flex min-w-0 flex-wrap content-start gap-2.5 lg:mt-4 lg:gap-2">
+                    <div className="mt-5 flex min-w-0 flex-wrap content-start items-start gap-2.5 lg:mt-4 lg:gap-2">
                       {step.chips.map((chip) => (
                         <Chip key={chip.label} chip={chip} />
                       ))}
@@ -106,7 +113,7 @@ export function HomepageJourney() {
                 </article>
               ))}
 
-              <article className="flex min-h-52 min-w-0 flex-col rounded-xl border border-brand-indigo/20 bg-brand-mist p-5 sm:min-h-[19rem]">
+              <article className="flex h-full min-h-52 min-w-0 flex-col rounded-xl border border-brand-indigo/20 bg-brand-mist p-5 sm:min-h-[19rem]">
                 <div className="flex h-full flex-col items-center justify-center text-center">
                   <span className="relative grid h-16 w-16 place-items-center rounded-full border border-brand-indigo/30">
                     <span className="finding-ring" />
@@ -242,10 +249,10 @@ function Chip({ chip }: { chip: MatchChip }) {
   return (
     <span
       className={cn(
-        "inline-flex max-w-full items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2 font-sans text-[14px] font-medium leading-5",
-        "lg:min-w-0 lg:max-w-full lg:gap-1 lg:whitespace-normal lg:px-2 lg:py-1 lg:text-[12px] lg:leading-4 lg:tracking-[-0.01em]",
+        "inline-flex max-w-full min-w-0 items-center gap-2 whitespace-normal rounded-full border px-4 py-2 font-sans text-[14px] font-medium leading-5",
+        "lg:gap-1 lg:px-2.5 lg:py-1 lg:text-[12px] lg:leading-4 lg:tracking-[-0.01em]",
         chip.selected
-          ? "border-[#6f35d4] bg-[#161022] text-white"
+          ? "border-[#a78bfa] bg-[#24143a] text-white"
           : "border-[#313135] bg-[#141418] text-[#d4d4d8]",
       )}
     >

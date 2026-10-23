@@ -12,9 +12,9 @@ const heroLede = Inter({
 
 export function Hero() {
   return (
-    <section className="hero-section relative overflow-hidden pt-10 pb-12 sm:pb-20 ">
+    <section className="hero-section relative overflow-hidden pt-10 pb-12 sm:pb-20">
       <AmbientLight variant="hero" />
-      <div className="relative mx-auto grid w-full min-w-0 max-w-7xl grid-cols-[minmax(0,1fr)] items-center gap-10 px-5 pt-6 pb-4 sm:gap-14 sm:px-6 sm:pt-16 sm:pb-20 lg:grid-cols-[minmax(0,56fr)_minmax(0,44fr)] lg:gap-x-20 lg:px-8 lg:pt-24 lg:pb-28">
+      <div className="relative mx-auto grid w-full min-w-0 max-w-7xl grid-cols-[minmax(0,1fr)] items-center gap-10 px-5 pt-6 pb-4 sm:gap-14 sm:px-6 sm:pt-16 sm:pb-20 lg:grid-cols-[minmax(0,56fr)_minmax(0,44fr)] lg:gap-x-20 lg:px-8 lg:pt-4 lg:pb-12">
         <div className="min-w-0">
           <h1 className="max-w-full font-serif text-brand-ink">
             Sometimes, you <br className="hidden md:block" />
