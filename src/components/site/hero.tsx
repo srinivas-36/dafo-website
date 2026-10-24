@@ -39,17 +39,11 @@ export function Hero() {
               className="w-full sm:w-auto"
             />
           </div>
-          <ul className="mt-6 grid w-full grid-cols-2 gap-x-2 gap-y-2 text-[10px] text-brand-ink/60 sm:mt-8 sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2 sm:text-xs lg:text-sm dark:text-white/60">
+          <ul className="mt-6 grid w-max max-w-full grid-cols-[max-content_max-content] gap-x-10 gap-y-2 text-[10px] text-brand-ink/60 sm:mt-8 sm:flex sm:w-auto sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2 sm:text-xs lg:grid lg:w-max lg:max-w-full lg:grid-cols-[max-content_max-content] lg:gap-x-4 lg:gap-y-2 lg:text-sm dark:text-white/60">
             {heroTrust.map((item) => (
               <li
                 key={item}
-                className={`inline-flex items-center gap-1.5 ${
-                  item === "Anonymous conversations"
-                    ? "lg:order-1"
-                    : item === "Context-based matching"
-                      ? "lg:order-2"
-                      : "lg:order-3"
-                }`}
+                className={`inline-flex items-center gap-1.5 whitespace-nowrap ${desktopTrustOrder[item]}`}
               >
                 <svg
                   width="14"

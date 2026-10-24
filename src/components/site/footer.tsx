@@ -143,16 +143,16 @@ const socials = [
       </svg>
     ),
   },
-  {
-    label: "X",
-    href: "https://x.com/dafotalk",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" aria-hidden>
-        <path
-          fill="currentColor"
-          d="M18.2 2.3h3.3l-7.2 8.3 8.5 11.2h-6.7l-4.7-6.2-5.4 6.2H2.7l7.7-8.8L2.3 2.3h6.8l4.3 5.6 4.8-5.6zm-1.2 17.5h1.8L7.1 4.1H5.1l11.9 15.7z"
-        />
-      </svg>
-    ),
-  },
+  // {
+  //   label: "X",
+  //   href: "https://x.com/dafotalk",
+  //   icon: (
+  //     <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" aria-hidden>
+  //       <path
+  //         fill="currentColor"
+  //         d="M18.2 2.3h3.3l-7.2 8.3 8.5 11.2h-6.7l-4.7-6.2-5.4 6.2H2.7l7.7-8.8L2.3 2.3h6.8l4.3 5.6 4.8-5.6zm-1.2 17.5h1.8L7.1 4.1H5.1l11.9 15.7z"
+  //       />
+  //     </svg>
+  //   ),
+  // },
 ] as const;
