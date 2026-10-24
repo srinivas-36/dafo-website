@@ -42,31 +42,26 @@ const audiences: {
   id: AudienceId;
   title: string;
   detail: string;
-  schoolEmail: boolean;
 }[] = [
   {
     id: "indian-student",
     title: "Indian international student in the U.S.",
     detail: "Studying in the U.S. on a student visa, from India.",
-    schoolEmail: true,
   },
   {
     id: "other-student",
     title: "Other international student in the U.S.",
     detail: "Studying in the U.S., from somewhere else in the world.",
-    schoolEmail: true,
   },
   {
     id: "us-resident",
     title: "U.S. resident",
     detail: "Born and raised in the United States.",
-    schoolEmail: false,
   },
   {
     id: "other",
     title: "Others",
     detail: "None of the above — tell us where you're coming from.",
-    schoolEmail: false,
   },
 ];
 
@@ -295,7 +290,7 @@ function WaitlistDialog({
     }
     setErrors({});
     setFormError("");
-    setStep(audience.schoolEmail ? "join" : "later");
+    setStep(audience.id === "indian-student" ? "join" : "later");
   }
 
   async function submitSignup(payload: Record<string, string>, kind: DoneKind) {
@@ -420,17 +415,10 @@ function WaitlistDialog({
 
   function submitLater(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!email.trim()) {
-      setErrors({
-        email: "Add an email if you'd like us to write when access expands.",
-      });
-      return;
-    }
-    if (!isEmail(email) || !audience) {
+    if (!email.trim() || !isEmail(email) || !audience) {
       setErrors({ email: "Enter a valid email." });
       return;
     }
-
     void queueInterest(
       {
         audience: audience.id,
@@ -468,7 +456,8 @@ function WaitlistDialog({
       "We're starting with Indian international students in the U.S. We're glad you're interested, and we may expand access to more people in the future.";
   } else if (step === "join") {
     title = "Where can we reach you?";
-    body = "We'll email you when early access opens. Nothing else.";
+    body =
+      "We'll email you when early access opens, along with DafoTalk launch news, product updates, and occasional announcements.";
   } else if (step === "done" && doneKind === "joined") {
     title = "You're on the list.";
     body = `We'll email ${email} when early access opens.`;
@@ -537,7 +526,7 @@ function WaitlistDialog({
                 title
               )}
             </h2>
-            <p className="mt-3 text-[15px] leading-relaxed text-[#8b8da0]">
+            <p className="mt-3 text-[15px] max-w-[90%]   leading-relaxed text-[#8b8da0]">
               {body}
             </p>
             <Progress value={progress} />
@@ -640,8 +629,8 @@ function WaitlistDialog({
                   </GradientButton>
                 </div>
                 <p className="mt-4 text-center text-[12px] leading-relaxed text-[#73758a]">
-                  You&apos;re joining DafoTalk&apos;s early-access community.
-                  We&apos;ll never share your email.
+                  You can unsubscribe from promotional emails at any time. See
+                  our Privacy Policy for details.
                 </p>
               </form>
             ) : null}
@@ -649,9 +638,10 @@ function WaitlistDialog({
             {step === "later" ? (
               <form className="mt-6" onSubmit={submitLater}>
                 <p className="text-[15px] leading-relaxed text-[#a3a5b8]">
-                  Optional: leave your email to hear if access expands.
+                  Leave your email to hear about future access and DafoTalk
+                  product updates.
                 </p>
-                <div className="mt-4">
+                <div className="mt-5">
                   <Field
                     label="Email"
                     name="email"
@@ -671,7 +661,7 @@ function WaitlistDialog({
                     {formError}
                   </p>
                 ) : null}
-                <div className="mt-5 flex items-stretch gap-2.5 sm:gap-3">
+                <div className="mt-5 flex items-stretch gap-3">
                   <BackButton onClick={() => setStep("qualify")} />
                   <GradientButton
                     className="min-w-0 flex-1 whitespace-nowrap px-3 text-[13px] sm:px-5 sm:text-[15px]"
@@ -681,8 +671,9 @@ function WaitlistDialog({
                   </GradientButton>
                 </div>
                 <p className="mt-4 text-center text-[12px] leading-relaxed text-[#73758a]">
-                  This isn&apos;t a guarantee of access. We&apos;ll never share
-                  your email.
+                  Future access isn&apos;t guaranteed. You can unsubscribe from
+                  promotional emails at any time. See our Privacy Policy for
+                  details.
                 </p>
               </form>
             ) : null}

@@ -6,7 +6,7 @@ const API_BASE = (
   "http://localhost:8000"
 ).replace(/\/$/, "");
 
-const SCHOOL_AUDIENCES = new Set(["indian-student", "other-student"]);
+const SCHOOL_AUDIENCES = new Set(["indian-student"]);
 const AUDIENCES = new Set([
   "indian-student",
   "other-student",

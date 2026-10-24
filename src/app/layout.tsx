@@ -30,6 +30,10 @@ export const metadata: Metadata = {
   },
   description:
     "DafoTalk helps you find someone who understands where you're coming from — based on who you are, what matters to you, and what you want to talk about.",
+  icons: {
+    icon: [{ url: "/logo-mark.webp", type: "image/webp" }],
+    apple: [{ url: "/logo-mark.webp", type: "image/webp" }],
+  },
 };
 
 export default function RootLayout({
