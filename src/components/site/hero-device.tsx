@@ -48,19 +48,19 @@ function SideButton({
         y={y}
         width={width}
         height={height}
-        rx="2"
-        fill="url(#heroPhoneMetal)"
-        stroke="#121624"
-        strokeWidth="0.6"
+        rx={Math.min(width / 2, 3.2)}
+        fill="#2e354c"
+        stroke="#15192a"
+        strokeWidth="0.45"
       />
       <rect
-        x={x + 0.7}
-        y={y + 1}
-        width={Math.max(width - 1.4, 1)}
-        height="0.9"
-        rx="0.45"
-        fill="#8b94b0"
-        opacity="0.65"
+        x={x + 0.55}
+        y={y + 0.7}
+        width={Math.max(width - 1.1, 1)}
+        height="0.7"
+        rx="0.35"
+        fill="#6d7694"
+        opacity="0.55"
       />
     </g>
   );
@@ -80,29 +80,28 @@ export function HeroDevice() {
           <title id="hero-phone-title">DafoTalk secured call with Saocac</title>
           <defs>
             <linearGradient id="heroPhoneMetal" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#343b54" />
-              <stop offset="22%" stopColor="#2e344a" />
-              <stop offset="62%" stopColor="#272c40" />
-              <stop offset="100%" stopColor="#1a1e30" />
+              <stop offset="0%" stopColor="#3c4460" />
+              <stop offset="16%" stopColor="#2e354c" />
+              <stop offset="70%" stopColor="#262c40" />
+              <stop offset="100%" stopColor="#1c2133" />
             </linearGradient>
-            <linearGradient id="heroPhoneEdge" x1="0.2" y1="0" x2="0.85" y2="1">
-              <stop offset="0%" stopColor="#5c6582" />
-              <stop offset="12%" stopColor="#424a64" />
-              <stop offset="40%" stopColor="#31384e" />
-              <stop offset="100%" stopColor="#222736" />
+            <linearGradient id="heroPhoneEdge" x1="0.2" y1="0" x2="0.8" y2="1">
+              <stop offset="0%" stopColor="#4c5570" />
+              <stop offset="18%" stopColor="#343b54" />
+              <stop offset="100%" stopColor="#1a1f30" />
             </linearGradient>
             <linearGradient id="heroPhoneLip" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.34" />
-              <stop offset="22%" stopColor="#ffffff" stopOpacity="0.08" />
-              <stop offset="100%" stopColor="#000000" stopOpacity="0.55" />
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.16" />
+              <stop offset="24%" stopColor="#ffffff" stopOpacity="0.04" />
+              <stop offset="100%" stopColor="#000000" stopOpacity="0.4" />
             </linearGradient>
             <clipPath id="heroPhoneScreen">
               <rect x="13" y="13" width="358" height="786" rx="32" />
             </clipPath>
           </defs>
-          <SideButton x={-5.2} y={168} width={7.2} height={54} />
-          <SideButton x={-5.2} y={234} width={7.2} height={54} />
-          <SideButton x={381.2} y={300} width={7.2} height={86} />
+          <SideButton x={-4.4} y={174} width={6.4} height={56} />
+          <SideButton x={-4.4} y={243} width={6.4} height={56} />
+          <SideButton x={381.8} y={216} width={6.4} height={74} />
           <rect
             x="1.3"
             y="1.3"
@@ -150,6 +149,13 @@ export function HeroDevice() {
             stroke="url(#heroPhoneLip)"
             strokeWidth="1.25"
           />
+          <g>
+            <circle cx="192" cy="47.2" r="8.8" fill="#1a2236" />
+            <circle cx="192" cy="47.2" r="7.1" fill="#070b16" />
+            <circle cx="192" cy="47.2" r="4.6" fill="#10182c" />
+            <circle cx="192" cy="47.2" r="2.7" fill="#1c2a4a" />
+            <ellipse cx="190.2" cy="45.3" rx="1.35" ry="0.8" fill="#e4e8f4" opacity="0.8" />
+          </g>
         </svg>
         <p className="hero-caption hero-caption--away">
           <span className="hero-caption__line">

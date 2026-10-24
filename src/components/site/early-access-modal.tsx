@@ -11,6 +11,11 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { cn } from "@/lib/cn";
+import {
+  SCHOOL_EMAIL_ERROR,
+  domainLooksComplete,
+  emailDomain,
+} from "@/lib/school-email";
 
 type EarlyAccessVariant = "header" | "hero" | "footer" | "cta";
 
@@ -76,6 +81,55 @@ const fieldClass =
 const labelClass =
   "block text-[11px] font-medium uppercase tracking-[0.16em] text-[#6d6f81]";
 
+const DOMAIN_TTL_MS = 60_000;
+
+let schoolDomainCache: { at: number; domains: Set<string> } | null = null;
+let schoolDomainRequest: Promise<Set<string> | null> | null = null;
+
+function peekSchoolDomains() {
+  if (schoolDomainCache && Date.now() - schoolDomainCache.at < DOMAIN_TTL_MS) {
+    return schoolDomainCache.domains;
+  }
+  return undefined;
+}
+
+function readSchoolDomains(data: unknown) {
+  if (!data || typeof data !== "object") return null;
+  const domains = (data as { domains?: unknown }).domains;
+  if (!Array.isArray(domains)) return null;
+  return new Set(
+    domains
+      .filter((item): item is string => typeof item === "string")
+      .map((item) => item.trim().toLowerCase())
+      .filter(Boolean),
+  );
+}
+
+function fetchSchoolDomains() {
+  if (schoolDomainCache && Date.now() - schoolDomainCache.at < DOMAIN_TTL_MS) {
+    return Promise.resolve(schoolDomainCache.domains);
+  }
+  if (!schoolDomainRequest) {
+    schoolDomainRequest = fetch("/api/early-access/school-domains", {
+      headers: { Accept: "application/json" },
+    })
+      .then(async (response) => {
+        if (!response.ok) return null;
+        const domains = readSchoolDomains(
+          await response.json().catch(() => null),
+        );
+        if (!domains) return null;
+        schoolDomainCache = { at: Date.now(), domains };
+        return domains;
+      })
+      .catch(() => null)
+      .finally(() => {
+        schoolDomainRequest = null;
+      });
+  }
+  return schoolDomainRequest;
+}
+
 export function EarlyAccessModal({
   label,
   variant = "header",
@@ -126,6 +180,11 @@ function WaitlistDialog({
   const [formError, setFormError] = useState("");
   const [pending, setPending] = useState(false);
   const [doneKind, setDoneKind] = useState<DoneKind>("joined");
+  const [schoolDomains, setSchoolDomains] = useState<
+    Set<string> | null | undefined
+  >(peekSchoolDomains);
+  const attemptRef = useRef(0);
+  const mountedRef = useRef(true);
 
   const audience = audiences.find((item) => item.id === audienceId) ?? null;
   const stepIndex = step === "qualify" ? 1 : 2;
@@ -134,6 +193,18 @@ function WaitlistDialog({
   useEffect(() => {
     onCloseRef.current = onClose;
   }, [onClose]);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    let cancelled = false;
+    void fetchSchoolDomains().then((domains) => {
+      if (!cancelled) setSchoolDomains(domains);
+    });
+    return () => {
+      cancelled = true;
+      mountedRef.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     const scrollY = window.scrollY;
@@ -266,21 +337,85 @@ function WaitlistDialog({
     }
   }
 
-  function submitJoin(event: FormEvent<HTMLFormElement>) {
+  function updateEmail(value: string) {
+    setEmail(value);
+    setFormError("");
+    setErrors({});
+  }
+
+  async function queueInterest(
+    payload: Record<string, string>,
+    kind: DoneKind,
+    returnStep: Step,
+  ) {
+    const attempt = ++attemptRef.current;
+    setPending(false);
+    setFormError("");
+    setErrors({});
+    setDoneKind(kind);
+    setStep("done");
+
+    try {
+      const response = await fetch("/api/early-access/interest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+        keepalive: true,
+      });
+      const data: unknown = await response.json().catch(() => null);
+      if (!mountedRef.current || attempt !== attemptRef.current) return;
+      if (response.ok || alreadyListed(data)) return;
+
+      const parsed = readErrors(data);
+      setErrors(parsed.fields);
+      setFormError(
+        parsed.form ||
+          (Object.keys(parsed.fields).length
+            ? ""
+            : "We couldn't save that. Please try again."),
+      );
+      setStep(returnStep);
+    } catch {
+      if (!mountedRef.current || attempt !== attemptRef.current) return;
+      setFormError(
+        "We couldn't reach the waitlist just now. Please try again.",
+      );
+      setStep(returnStep);
+    }
+  }
+
+  async function submitJoin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!audience) return;
-    if (!isEmail(email)) {
+    const trimmed = email.trim();
+    if (!isEmail(trimmed)) {
       setErrors({ email: "Enter a valid email." });
       return;
     }
 
-    void submitSignup(
-      {
-        audience: audience.id,
-        email: email.trim(),
-      },
-      "joined",
-    );
+    let domains = schoolDomains;
+    if (domains === undefined) {
+      setPending(true);
+      domains = await fetchSchoolDomains();
+      if (!mountedRef.current) return;
+      setSchoolDomains(domains);
+      setPending(false);
+    }
+
+    if (domains && !domains.has(emailDomain(trimmed))) {
+      setErrors({ email: SCHOOL_EMAIL_ERROR });
+      return;
+    }
+
+    const payload = { audience: audience.id, email: trimmed };
+    if (!domains) {
+      void submitSignup(payload, "joined");
+      return;
+    }
+    void queueInterest(payload, "joined", "join");
   }
 
   function submitLater(event: FormEvent<HTMLFormElement>) {
@@ -296,14 +431,34 @@ function WaitlistDialog({
       return;
     }
 
-    void submitSignup(
+    void queueInterest(
       {
         audience: audience.id,
         email: email.trim(),
       },
       "noted",
+      "later",
     );
   }
+
+  const typedDomain = emailDomain(email);
+  const domainComplete = domainLooksComplete(typedDomain);
+  const domainBlocked =
+    step === "join" &&
+    schoolDomains instanceof Set &&
+    domainComplete &&
+    !schoolDomains.has(typedDomain);
+  const domainAllowed =
+    step === "join" &&
+    schoolDomains instanceof Set &&
+    domainComplete &&
+    schoolDomains.has(typedDomain) &&
+    !errors.email;
+  const domainChecking =
+    step === "join" &&
+    schoolDomains === undefined &&
+    domainComplete &&
+    !errors.email;
 
   let title = "Which best describes you?";
   let body = "This helps us open early access to the right people first.";
@@ -444,18 +599,43 @@ function WaitlistDialog({
                   type="email"
                   autoComplete="email"
                   value={email}
-                  error={errors.email}
-                  onChange={setEmail}
+                  error={
+                    errors.email ||
+                    (domainBlocked ? SCHOOL_EMAIL_ERROR : undefined)
+                  }
+                  onChange={updateEmail}
                   placeholder="name@university.edu"
                 />
+                {domainAllowed ? (
+                  <p
+                    className="mt-1.5 text-sm leading-snug wrap-break-word text-[#9ddeb5]"
+                    aria-live="polite"
+                  >
+                    Valid school email.
+                  </p>
+                ) : null}
+                {domainChecking ? (
+                  <p
+                    className="mt-1.5 text-sm leading-snug text-[#8b8da0]"
+                    aria-live="polite"
+                  >
+                    Checking university list…
+                  </p>
+                ) : null}
                 {formError ? (
-                  <p className="mt-4 text-sm text-[#ffb4c4]" role="alert">
+                  <p
+                    className="mt-4 text-sm leading-snug wrap-break-word text-[#ffb4c4]"
+                    role="alert"
+                  >
                     {formError}
                   </p>
                 ) : null}
                 <div className="mt-5 flex items-stretch gap-3">
                   <BackButton onClick={() => setStep("qualify")} />
-                  <GradientButton className="min-w-0 flex-1" disabled={pending}>
+                  <GradientButton
+                    className="min-w-0 flex-1"
+                    disabled={pending || domainBlocked}
+                  >
                     {pending ? "Joining…" : "Join Early Access"}
                   </GradientButton>
                 </div>
@@ -479,12 +659,15 @@ function WaitlistDialog({
                     autoComplete="email"
                     value={email}
                     error={errors.email}
-                    onChange={setEmail}
+                    onChange={updateEmail}
                     placeholder="you@example.com"
                   />
                 </div>
                 {formError ? (
-                  <p className="mt-4 text-sm text-[#ffb4c4]" role="alert">
+                  <p
+                    className="mt-4 text-sm leading-snug wrap-break-word text-[#ffb4c4]"
+                    role="alert"
+                  >
                     {formError}
                   </p>
                 ) : null}
@@ -618,18 +801,32 @@ function Field({
         value={value}
         placeholder={placeholder}
         onChange={(event) => onChange(event.target.value)}
+        autoCapitalize={type === "email" ? "none" : undefined}
+        autoCorrect={type === "email" ? "off" : undefined}
+        spellCheck={type === "email" ? false : undefined}
+        inputMode={type === "email" ? "email" : undefined}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? `${id}-error` : undefined}
         className={fieldClass}
         style={{ backgroundColor: "#11152b", color: "#f8fafc" }}
       />
       {error ? (
-        <p id={`${id}-error`} className="mt-1.5 text-sm text-[#ffb4c4]">
+        <p
+          id={`${id}-error`}
+          className="mt-1.5 text-sm leading-snug wrap-break-word text-[#ffb4c4]"
+          aria-live="polite"
+        >
           {error}
         </p>
       ) : null}
     </div>
   );
+}
+
+function alreadyListed(data: unknown) {
+  return (readErrors(data).fields.email ?? "")
+    .toLowerCase()
+    .includes("already");
 }
 
 function readErrors(data: unknown): { form?: string; fields: FieldErrors } {

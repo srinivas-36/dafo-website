@@ -581,7 +581,7 @@ body {
   }
 
   .hero-phone-wrap {
-    width: min(calc(100% - 12.15rem), 21rem);
+    width: min(calc(100% - 12.15rem), 18rem);
     margin-left: auto;
     margin-right: clamp(2.75rem, calc(10.15rem - max(0px, 100vw - 80rem) / 2), 10.15rem);
   }
