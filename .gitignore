@@ -42,7 +42,9 @@ next-env.d.ts
 
 # local temp folders, caches, and browser profiles
 .tmp-*
+.edge-tmp
 /tmpup
 .turbo
 .cache
 Thumbs.db
+/.edge-tmp*
