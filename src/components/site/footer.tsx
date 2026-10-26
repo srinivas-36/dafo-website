@@ -111,6 +111,7 @@ export function Footer() {
           <div className="flex justify-center gap-6 sm:justify-end">
             <Link
               href="/privacy"
+              target="_blank"
               aria-current={pathname === "/privacy" ? "page" : undefined}
               className={cn(
                 "transition-colors hover:text-brand-night-fg",
@@ -120,6 +121,7 @@ export function Footer() {
               Privacy
             </Link>
             <Link
+              target="_blank"
               href="/terms"
               aria-current={pathname === "/terms" ? "page" : undefined}
               className={cn(
