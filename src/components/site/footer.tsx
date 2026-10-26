@@ -109,8 +109,26 @@ export function Footer() {
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-brand-night-fg/10 pt-8 text-center text-xs text-brand-night-fg/40 sm:flex-row sm:text-left">
           <span>© {year} DafoTalk. All rights reserved.</span>
           <div className="flex justify-center gap-6 sm:justify-end">
-            <span>Privacy</span>
-            <span>Terms</span>
+            <Link
+              href="/privacy"
+              aria-current={pathname === "/privacy" ? "page" : undefined}
+              className={cn(
+                "transition-colors hover:text-brand-night-fg",
+                pathname === "/privacy" && "text-brand-night-fg",
+              )}
+            >
+              Privacy
+            </Link>
+            <Link
+              href="/terms"
+              aria-current={pathname === "/terms" ? "page" : undefined}
+              className={cn(
+                "transition-colors hover:text-brand-night-fg",
+                pathname === "/terms" && "text-brand-night-fg",
+              )}
+            >
+              Terms
+            </Link>
           </div>
         </div>
       </div>
