@@ -36,9 +36,9 @@ export function LegalDocument({
       <header className="relative overflow-hidden border-b border-brand-line">
         <AmbientLight variant="soft" />
         <div className="relative mx-auto w-full max-w-3xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-brand-indigo">
+          {/* <p className="text-xs font-medium uppercase tracking-[0.2em] text-brand-indigo">
             {kicker}
-          </p>
+          </p> */}
           <h1
             className="mt-4 text-balance text-[2.35rem] leading-[1.08] tracking-tight text-brand-ink sm:text-5xl"
             style={displayFont}
