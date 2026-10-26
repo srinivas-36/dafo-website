@@ -220,9 +220,9 @@ export function HomepageJourney() {
               you&apos;re looking for <br className="sm:hidden" />
               starts here.
             </h2>
-            <div className="journey-close__action mt-9">
+            {/* <div className="journey-close__action mt-9">
               <EarlyAccessModal label="Join the Waitlist" variant="hero" />
-            </div>
+            </div> */}
             <p className="journey-close__kicker mt-7 text-sm uppercase tracking-[0.18em] text-brand-ink/55">
               Where understanding begins.
             </p>

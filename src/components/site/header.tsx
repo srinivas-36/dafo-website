@@ -70,7 +70,7 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-3">
-          <EarlyAccessModal label="Join Waitlist" variant="header" />
+          {/* <EarlyAccessModal label="Join Waitlist" variant="header" />  */}
           <button
             type="button"
             className="p-2 -mr-2 text-brand-ink lg:hidden"
@@ -119,11 +119,11 @@ export function Header() {
                 </Link>
               );
             })}
-            <EarlyAccessModal
+            {/* <EarlyAccessModal
               label="Join Waitlist"
               variant="hero"
               className="mt-3 sm:hidden"
-            />
+            /> */}
           </div>
         </div>
       ) : null}

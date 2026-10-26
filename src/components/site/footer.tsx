@@ -49,7 +49,7 @@ export function Footer() {
               coming from.
             </p>
             <div className="mt-8">
-              <EarlyAccessModal label="Join Waitlist" variant="footer" />
+              {/* <EarlyAccessModal label="Join Waitlist" variant="footer" /> */}
             </div>
           </div>
 

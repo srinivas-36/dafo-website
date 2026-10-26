@@ -33,11 +33,11 @@ export function Hero() {
             you want to talk about.
           </p>
           <div className="mt-7 flex w-full flex-col gap-3 sm:mt-9 sm:flex-row">
-            <EarlyAccessModal
+            {/* <EarlyAccessModal
               label="Join Early Access"
               variant="hero"
               className="w-full sm:w-auto"
-            />
+            /> */}
           </div>
           <ul className="mt-6 grid w-max max-w-full grid-cols-[max-content_max-content] gap-x-10 gap-y-2 text-[10px] text-brand-ink/60 sm:mt-8 sm:flex sm:w-auto sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2 sm:text-xs lg:grid lg:w-max lg:max-w-full lg:grid-cols-[max-content_max-content] lg:gap-x-4 lg:gap-y-2 lg:text-sm dark:text-white/60">
             {heroTrust.map((item) => (
