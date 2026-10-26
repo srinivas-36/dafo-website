@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { AmbientLight } from "@/components/site/ambient-light";
 
 export type LegalBlock =
@@ -25,7 +26,6 @@ const displayFont = {
 } as const;
 
 export function LegalDocument({
-  kicker,
   title,
   updated,
   updatedDate,
@@ -35,19 +35,26 @@ export function LegalDocument({
     <article>
       <header className="relative overflow-hidden border-b border-brand-line">
         <AmbientLight variant="soft" />
-        <div className="relative mx-auto w-full max-w-3xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-          {/* <p className="text-xs font-medium uppercase tracking-[0.2em] text-brand-indigo">
-            {kicker}
-          </p> */}
-          <h1
-            className="mt-4 text-balance text-[2.35rem] leading-[1.08] tracking-tight text-brand-ink sm:text-5xl"
-            style={displayFont}
-          >
-            {title}
-          </h1>
-          <p className="mt-5 text-sm text-brand-ink/55">
-            Last updated: <time dateTime={updatedDate}>{updated}</time>
-          </p>
+        <div className="relative mx-auto w-full sm:w-11/12 lg:w-3/4">
+          <Image
+            src="/dafo-logo.png"
+            alt=""
+            width={1254}
+            height={1254}
+            priority
+            className="pointer-events-none absolute top-0 left-1/2 h-15 w-15 -translate-x-1/2 sm:top-8 sm:left-8 sm:h-15 sm:w-15 sm:translate-x-0 lg:left-12"
+          />
+          <div className="relative mx-auto w-full max-w-3xl px-5 pt-16 pb-12 text-center sm:px-8 sm:pt-24 sm:pb-16 lg:pb-20">
+            <h1
+              className="text-balance text-[2.15rem] leading-[1.08] tracking-tight text-brand-ink sm:text-5xl"
+              style={displayFont}
+            >
+              {title}
+            </h1>
+            <p className="mt-5 text-xs uppercase tracking-[0.18em] text-brand-ink/55 sm:mt-6 sm:text-sm">
+              Last updated: <time dateTime={updatedDate}>{updated}</time>
+            </p>
+          </div>
         </div>
       </header>
 
