@@ -1,12 +1,29 @@
-import type { Metadata } from "next";
 import { ContactSection } from "@/components/site/contact-section";
+import { JsonLd } from "@/components/site/json-ld";
+import { pageMetadata, pageSchema, withBrand } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Join the waitlist, ask a question, or tell us about a transition you're navigating. A real person reads every message.",
-};
+const title = "Contact";
+const description =
+  "Joining the waitlist, have a question, or want to work with DafoTalk? Send a message. A real person reads every note.";
+
+export const metadata = pageMetadata({
+  title,
+  description,
+  path: "/contact",
+});
 
 export default function ContactPage() {
-  return <ContactSection />;
+  return (
+    <>
+      <JsonLd
+        data={pageSchema({
+          path: "/contact",
+          name: withBrand(title),
+          description,
+          type: "ContactPage",
+        })}
+      />
+      <ContactSection />
+    </>
+  );
 }

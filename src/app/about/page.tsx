@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
 import { InteriorPage } from "@/components/site/interior-page";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "About",
   description: "DafoTalk is a place for honest conversation.",
-};
+  path: "/about",
+  index: false,
+});
 
 export default function AboutPage() {
   return (
