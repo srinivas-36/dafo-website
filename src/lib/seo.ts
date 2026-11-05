@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dafotalk.com";
+const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dafotalk.com";
 
 export const site = {
   name: "DafoTalk",

@@ -76,7 +76,7 @@ export function HomepageJourney() {
               <article className="flex h-full min-h-52 min-w-0 flex-col rounded-xl border border-brand-night-fg/10 bg-brand-night p-5 sm:min-h-[19rem]">
                 <div className="relative flex h-full min-h-44 flex-col items-center justify-center gap-3.5 text-center sm:min-h-0">
                   <Image
-                    src="/logo-mark.webp"
+                    src="/logos/Group-4.svg"
                     alt=""
                     width={1254}
                     height={1254}

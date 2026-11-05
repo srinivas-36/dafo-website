@@ -37,7 +37,7 @@ export function Footer() {
               className="mb-5 inline-flex items-center"
             >
               <Image
-                src="/logo.webp"
+                src="/logos/Group-6.svg"
                 alt=""
                 width={1920}
                 height={518}

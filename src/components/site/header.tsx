@@ -38,7 +38,7 @@ export function Header() {
           onClick={() => setOpen(false)}
         >
           <Image
-            src="/logo.webp"
+            src="/logos/Group-6.svg"
             alt=""
             width={1900}
             height={500}

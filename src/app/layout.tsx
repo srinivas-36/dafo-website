@@ -62,8 +62,10 @@ export const metadata: Metadata = {
     siteName: site.name,
   },
   icons: {
-    icon: [{ url: "/logo-mark.webp", type: "image/webp" }],
-    apple: [{ url: "/logo-mark.webp", type: "image/webp" }],
+    icon: [
+      { url: "/logos/Group-4.svg?v=3", type: "image/svg+xml", sizes: "any" },
+    ],
+    apple: [{ url: "/logos/group-4-180.png?v=3", sizes: "180x180" }],
   },
   ...(googleVerification
     ? { verification: { google: googleVerification } }
@@ -76,7 +78,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${serif.variable} ${display.variable} dark h-full antialiased`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${sans.variable} ${serif.variable} ${display.variable} dark h-full antialiased`}
+    >
       <body className="min-h-full">
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: stayAtTopOnLoadScript }} />
